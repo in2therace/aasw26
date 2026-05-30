@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1000" font-family="system-ui, sans-serif">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2bc0d4"/>
+      <stop offset="1" stop-color="#15315a"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1000" fill="url(#g2)"/>
+  <text x="450" y="490" fill="#ffffff" font-size="72" font-weight="800" text-anchor="middle">Beispielbild 2</text>
+  <text x="450" y="560" fill="#dff6fa" font-size="30" text-anchor="middle">images/ Ordner</text>
+</svg>

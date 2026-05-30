@@ -1,1 +1,259 @@
-Hello World!
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Display</title>
+  <style>
+    /* ===== Konfig: hier bei Bedarf anpassen ===== */
+    /* Farbschema: In2theBlue / Alpe Adria Sailing Week (Navy + Türkis) */
+    :root {
+      --slide-seconds: 6s;   /* Wechseldauer pro Bild */
+      --fade-seconds: 1s;    /* Dauer des Fade-Übergangs */
+      --navy-deep: #0c2448;  /* tiefes Navy (Logo) */
+      --navy: #15315a;       /* Navy */
+      --teal: #159ca8;       /* Türkis-Akzent (Logo) */
+      --teal-bright: #2bc0d4;/* helles Türkis für Highlights */
+      --panel: #12325c;      /* Hintergrund der Abschnitte */
+      --panel-edge: #1d5878; /* Rahmen der Abschnitte */
+      --ink: #eaf6fb;        /* helle Schrift */
+      --ink-dim: #8fb6cc;    /* gedämpfte Schrift */
+      --gap: 12px;           /* Abstand zwischen den Abschnitten */
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: none;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* Erzwingt 9:16, zentriert mit schwarzen Rändern falls Bildschirm abweicht */
+    #stage {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #frame {
+      aspect-ratio: 9 / 16;
+      height: 100%;
+      max-width: 100%;
+      background:
+        radial-gradient(120% 60% at 50% 0%, var(--navy) 0%, var(--navy-deep) 60%, #07182f 100%);
+      display: grid;
+      grid-template-rows: 15% 42% 43%;
+      gap: var(--gap);
+      padding: var(--gap);
+    }
+
+    .section {
+      background: linear-gradient(160deg, var(--panel) 0%, var(--navy-deep) 100%);
+      border: 1px solid var(--panel-edge);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+    }
+
+    /* ===== Abschnitt 1: Logo-Banner ===== */
+    #logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 10px 16px;
+      background:
+        linear-gradient(160deg, #ffffff 0%, #eef7fb 100%);
+      border-color: #cfe6ef;
+    }
+    #logo img {
+      height: 100%;
+      max-height: 100%;
+      width: auto;
+      object-fit: contain;
+    }
+    #logo .event-title {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1.1;
+    }
+    #logo .event-title .main {
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: var(--navy-deep);
+      text-transform: uppercase;
+    }
+    #logo .event-title .sub {
+      font-size: 1.0rem;
+      font-weight: 600;
+      color: var(--teal);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* ===== Abschnitt 2: Ergebnis-Foto ===== */
+    #results {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #results img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* ===== Abschnitt 3: Slider ===== */
+    #slider .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity var(--fade-seconds) ease-in-out;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    #slider .slide.active { opacity: 1; }
+
+    #status {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-dim);
+      font-size: 1.1rem;
+      text-align: center;
+      padding: 20px;
+    }
+    #status.hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <div id="frame">
+      <section id="logo" class="section">
+        <img src="assets/logo.png" alt="In2theBlue" />
+        <div class="event-title">
+          <span class="main">Alpe Adria<br>Sailing Week</span>
+          <span class="sub">Punat&nbsp;2026</span>
+        </div>
+      </section>
+
+      <section id="results" class="section">
+        <img src="assets/results.pdf" alt="Ergebnisse" />
+      </section>
+
+      <section id="slider" class="section">
+        <div id="status">Bilder werden geladen…</div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // ===== Konfiguration =====
+    const REPO = "in2therace/aasw26";   // GitHub owner/repo
+    const BRANCH = "main";
+    const IMAGE_DIR = "images";
+    const SLIDE_MS = 6000;               // Wechseldauer (muss zu --slide-seconds passen)
+    const REFRESH_MS = 3 * 60 * 1000;    // Bilderliste alle 3 Min neu laden
+    const IMG_RE = /\.(jpe?g|png|gif|webp|svg)$/i;
+
+    const slider = document.getElementById("slider");
+    const status = document.getElementById("status");
+
+    let slides = [];        // DOM-Elemente der aktuellen Slides
+    let currentUrls = "";   // Signatur der aktuell angezeigten Bilder
+    let idx = 0;
+    let timer = null;
+
+    function setStatus(msg) {
+      if (!msg) { status.classList.add("hidden"); return; }
+      status.textContent = msg;
+      status.classList.remove("hidden");
+    }
+
+    // Bilderliste holen: zuerst GitHub-API, sonst lokale images.json als Fallback
+    async function fetchImageUrls() {
+      try {
+        const api = `https://api.github.com/repos/${REPO}/contents/${IMAGE_DIR}?ref=${BRANCH}`;
+        const res = await fetch(api, { headers: { Accept: "application/vnd.github+json" } });
+        if (res.ok) {
+          const items = await res.json();
+          const urls = items
+            .filter(it => it.type === "file" && IMG_RE.test(it.name))
+            .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
+            .map(it => it.download_url);
+          if (urls.length) return urls;
+        }
+      } catch (e) { /* fällt unten auf JSON zurück */ }
+
+      // Fallback: images/images.json mit ["datei1.jpg", ...]
+      try {
+        const res = await fetch(`${IMAGE_DIR}/images.json?_=${Date.now()}`);
+        if (res.ok) {
+          const names = await res.json();
+          return names
+            .filter(n => IMG_RE.test(n))
+            .map(n => `${IMAGE_DIR}/${n}`);
+        }
+      } catch (e) { /* nichts */ }
+
+      return [];
+    }
+
+    function buildSlides(urls) {
+      slider.querySelectorAll(".slide").forEach(el => el.remove());
+      slides = urls.map(url => {
+        const div = document.createElement("div");
+        div.className = "slide";
+        div.style.backgroundImage = `url("${url}")`;
+        slider.appendChild(div);
+        return div;
+      });
+      idx = 0;
+      if (slides.length) slides[0].classList.add("active");
+    }
+
+    function advance() {
+      if (slides.length < 2) return;
+      slides[idx].classList.remove("active");
+      idx = (idx + 1) % slides.length;
+      slides[idx].classList.add("active");
+    }
+
+    async function loadAndRender() {
+      const urls = await fetchImageUrls();
+      const sig = urls.join("|");
+
+      if (!urls.length) {
+        if (slides.length) return; // schon was angezeigt -> nicht leeren
+        setStatus("Noch keine Bilder im Ordner /images");
+        return;
+      }
+
+      if (sig === currentUrls) return; // keine Änderung
+      currentUrls = sig;
+
+      setStatus(null);
+      buildSlides(urls);
+
+      if (timer) clearInterval(timer);
+      if (slides.length > 1) timer = setInterval(advance, SLIDE_MS);
+    }
+
+    loadAndRender();
+    setInterval(loadAndRender, REFRESH_MS);
+  </script>
+</body>
+</html>
