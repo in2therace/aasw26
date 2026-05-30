@@ -80,7 +80,7 @@
       object-fit: contain;
     }
     #logo .logo-aasw { max-height: 100%; max-width: 40%; }
-    #logo .logo-yca  { max-height: 78%;  max-width: 34%; }
+    #logo .logo-yca  { max-height: 64%;  max-width: 28%; }
 
     /* ===== Abschnitt 2: Ergebnis-Grid (6 Bilder) ===== */
     #results { padding: 10px; }
@@ -175,8 +175,22 @@
       el.classList.remove("hidden");
     }
 
-    // Bilder aus einem Ordner holen: zuerst GitHub-API, sonst lokale images.json als Fallback
+    // Bilder aus einem Ordner holen.
+    // 1) Manifest <dir>/images.json — wird vom GitHub Action automatisch aktuell gehalten,
+    //    kein API-Limit, wird über GitHub Pages ausgeliefert. Das ist der Normalweg.
+    // 2) Fallback GitHub-API — nur falls kein Manifest da ist (Achtung: 60 Anfragen/Std/IP).
     async function fetchImageUrls(dir) {
+      try {
+        const res = await fetch(`${dir}/images.json?_=${Date.now()}`, { cache: "no-store" });
+        if (res.ok) {
+          const names = await res.json();
+          const urls = names
+            .filter(n => IMG_RE.test(n))
+            .map(n => `${dir}/${encodeURIComponent(n)}`);
+          if (urls.length) return urls;
+        }
+      } catch (e) { /* fällt unten auf die API zurück */ }
+
       try {
         const api = `https://api.github.com/repos/${REPO}/contents/${dir}?ref=${BRANCH}`;
         const res = await fetch(api, { headers: { Accept: "application/vnd.github+json" } });
@@ -187,17 +201,6 @@
             .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
             .map(it => it.download_url);
           if (urls.length) return urls;
-        }
-      } catch (e) { /* fällt unten auf JSON zurück */ }
-
-      // Fallback: <dir>/images.json mit ["datei1.jpg", ...]
-      try {
-        const res = await fetch(`${dir}/images.json?_=${Date.now()}`);
-        if (res.ok) {
-          const names = await res.json();
-          return names
-            .filter(n => IMG_RE.test(n))
-            .map(n => `${dir}/${n}`);
         }
       } catch (e) { /* nichts */ }
 
