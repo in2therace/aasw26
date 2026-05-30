@@ -75,22 +75,32 @@
       border-color: #cfe6ef;
     }
     #logo img {
-      height: 100%;
-      max-height: 100%;
+      height: auto;
       width: auto;
       object-fit: contain;
     }
+    #logo .logo-aasw { max-height: 100%; max-width: 40%; }
+    #logo .logo-yca  { max-height: 78%;  max-width: 34%; }
 
-    /* ===== Abschnitt 2: Ergebnis-Foto ===== */
-    #results {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    #results img {
+    /* ===== Abschnitt 2: Ergebnis-Grid (6 Bilder) ===== */
+    #results { padding: 10px; }
+    #results-grid {
       width: 100%;
       height: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 8px;
+    }
+    #results-grid img {
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
       object-fit: contain;
+      background: var(--navy-deep);
+      border: 1px solid var(--panel-edge);
+      border-radius: 8px;
     }
 
     /* ===== Abschnitt 3: Slider ===== */
@@ -105,7 +115,7 @@
     }
     #slider .slide.active { opacity: 1; }
 
-    #status {
+    .status {
       position: absolute;
       inset: 0;
       display: flex;
@@ -116,23 +126,24 @@
       text-align: center;
       padding: 20px;
     }
-    #status.hidden { display: none; }
+    .status.hidden { display: none; }
   </style>
 </head>
 <body>
   <div id="stage">
     <div id="frame">
       <section id="logo" class="section">
-        <img src="assets/AASW_interhome.png" alt="Alpe Adria Sailing Week – powered by Interhome" />
-        <img src="assets/YCA_Logo_Flagge.png" alt="Yacht Club Austria" />
+        <img class="logo-aasw" src="assets/AASW_interhome.png" alt="Alpe Adria Sailing Week – powered by Interhome" />
+        <img class="logo-yca" src="assets/YCA_Logo_Flagge.png" alt="Yacht Club Austria" />
       </section>
 
       <section id="results" class="section">
-        <img src="assets/results.svg" alt="Ergebnisse" />
+        <div id="results-grid"></div>
+        <div id="results-status" class="status">Ergebnisse werden geladen…</div>
       </section>
 
       <section id="slider" class="section">
-        <div id="status">Bilder werden geladen…</div>
+        <div id="status" class="status">Bilder werden geladen…</div>
       </section>
     </div>
   </div>
@@ -141,29 +152,33 @@
     // ===== Konfiguration =====
     const REPO = "in2therace/aasw26";   // GitHub owner/repo
     const BRANCH = "main";
-    const IMAGE_DIR = "images";
+    const SLIDER_DIR = "images";         // Ordner für den Bilder-Slider (unten)
+    const RESULTS_DIR = "results";       // Ordner für die Ergebnis-Bilder (Grid, Mitte)
     const SLIDE_MS = 6000;               // Wechseldauer (muss zu --slide-seconds passen)
-    const REFRESH_MS = 3 * 60 * 1000;    // Bilderliste alle 3 Min neu laden
+    const REFRESH_MS = 3 * 60 * 1000;    // Bilderlisten alle 3 Min neu laden
     const IMG_RE = /\.(jpe?g|png|gif|webp|svg)$/i;
 
     const slider = document.getElementById("slider");
     const status = document.getElementById("status");
+    const resultsGrid = document.getElementById("results-grid");
+    const resultsStatus = document.getElementById("results-status");
 
     let slides = [];        // DOM-Elemente der aktuellen Slides
-    let currentUrls = "";   // Signatur der aktuell angezeigten Bilder
+    let currentUrls = "";   // Signatur der aktuell angezeigten Slider-Bilder
+    let resultsSig = "";    // Signatur der aktuell angezeigten Ergebnis-Bilder
     let idx = 0;
     let timer = null;
 
-    function setStatus(msg) {
-      if (!msg) { status.classList.add("hidden"); return; }
-      status.textContent = msg;
-      status.classList.remove("hidden");
+    function setStatus(el, msg) {
+      if (!msg) { el.classList.add("hidden"); return; }
+      el.textContent = msg;
+      el.classList.remove("hidden");
     }
 
-    // Bilderliste holen: zuerst GitHub-API, sonst lokale images.json als Fallback
-    async function fetchImageUrls() {
+    // Bilder aus einem Ordner holen: zuerst GitHub-API, sonst lokale images.json als Fallback
+    async function fetchImageUrls(dir) {
       try {
-        const api = `https://api.github.com/repos/${REPO}/contents/${IMAGE_DIR}?ref=${BRANCH}`;
+        const api = `https://api.github.com/repos/${REPO}/contents/${dir}?ref=${BRANCH}`;
         const res = await fetch(api, { headers: { Accept: "application/vnd.github+json" } });
         if (res.ok) {
           const items = await res.json();
@@ -175,18 +190,41 @@
         }
       } catch (e) { /* fällt unten auf JSON zurück */ }
 
-      // Fallback: images/images.json mit ["datei1.jpg", ...]
+      // Fallback: <dir>/images.json mit ["datei1.jpg", ...]
       try {
-        const res = await fetch(`${IMAGE_DIR}/images.json?_=${Date.now()}`);
+        const res = await fetch(`${dir}/images.json?_=${Date.now()}`);
         if (res.ok) {
           const names = await res.json();
           return names
             .filter(n => IMG_RE.test(n))
-            .map(n => `${IMAGE_DIR}/${n}`);
+            .map(n => `${dir}/${n}`);
         }
       } catch (e) { /* nichts */ }
 
       return [];
+    }
+
+    // ===== Ergebnis-Grid (Mitte) =====
+    async function loadResults() {
+      const urls = await fetchImageUrls(RESULTS_DIR);
+      const sig = urls.join("|");
+
+      if (!urls.length) {
+        if (resultsGrid.children.length) return; // schon was da -> nicht leeren
+        setStatus(resultsStatus, "Noch keine Bilder im Ordner /results");
+        return;
+      }
+      if (sig === resultsSig) return; // keine Änderung
+      resultsSig = sig;
+
+      setStatus(resultsStatus, null);
+      resultsGrid.innerHTML = "";
+      urls.forEach(url => {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Ergebnis";
+        resultsGrid.appendChild(img);
+      });
     }
 
     function buildSlides(urls) {
@@ -210,26 +248,28 @@
     }
 
     async function loadAndRender() {
-      const urls = await fetchImageUrls();
+      const urls = await fetchImageUrls(SLIDER_DIR);
       const sig = urls.join("|");
 
       if (!urls.length) {
         if (slides.length) return; // schon was angezeigt -> nicht leeren
-        setStatus("Noch keine Bilder im Ordner /images");
+        setStatus(status, "Noch keine Bilder im Ordner /images");
         return;
       }
 
       if (sig === currentUrls) return; // keine Änderung
       currentUrls = sig;
 
-      setStatus(null);
+      setStatus(status, null);
       buildSlides(urls);
 
       if (timer) clearInterval(timer);
       if (slides.length > 1) timer = setInterval(advance, SLIDE_MS);
     }
 
+    loadResults();
     loadAndRender();
+    setInterval(loadResults, REFRESH_MS);
     setInterval(loadAndRender, REFRESH_MS);
   </script>
 </body>
