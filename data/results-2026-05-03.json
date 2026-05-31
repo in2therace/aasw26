@@ -1,0 +1,72 @@
+{
+  "date": "3. Mai 2026",
+  "dayLabel": "40. Croatia Cup · OPEN",
+  "classes": [
+    {
+      "name": "Gruppe 0",
+      "type": "onedesign",
+      "overall": [
+        { "pos": "1", "sail": "22", "boat": "DESPERADO", "skipper": "OTTO SATTMAN", "club": "U.Y.CWO", "pts": "1" }
+      ],
+      "races": []
+    },
+    {
+      "name": "Gruppe 1",
+      "type": "onedesign",
+      "overall": [
+        { "pos": "1", "sail": "17", "boat": "TRINITY", "skipper": "JULIAN KIRCHER", "club": "Y.C.AUSTRIA", "pts": "1" },
+        { "pos": "2", "sail": "20", "boat": "JAZZ",    "skipper": "IVICA KAMBER",   "club": "J.K.GALEB",   "pts": "2" },
+        { "pos": "3", "sail": "29", "boat": "VIHOR",   "skipper": "IGOR BARBALIC",  "club": "J.K.VIHOR",   "pts": "3" }
+      ],
+      "races": []
+    },
+    {
+      "name": "Gruppe 2",
+      "type": "onedesign",
+      "overall": [
+        { "pos": "1", "sail": "13", "boat": "FOLOW US VULK", "skipper": "IVICA SCURIC",     "club": "J.K.OPATIJA", "pts": "1" },
+        { "pos": "2", "sail": "28", "boat": "JENNY",         "skipper": "THOMAS REISINGER", "club": "ORCA",        "pts": "2" },
+        { "pos": "3", "sail": "24", "boat": "CHITA",         "skipper": "MIHA PAVLIN",      "club": "N.C.ROGLA",   "pts": "3" },
+        { "pos": "4", "sail": "1",  "boat": "BEST SECRET",   "skipper": "GORAN KARABAIĆ",   "club": "J.K.PUNAT",   "pts": "4" }
+      ],
+      "races": []
+    },
+    {
+      "name": "Gruppe 3",
+      "type": "onedesign",
+      "overall": [
+        { "pos": "1",  "sail": "11", "boat": "X",             "skipper": "TONČI SKOMERŠIĆ",  "club": "J.K.PLAV",        "pts": "1"  },
+        { "pos": "2",  "sail": "3",  "boat": "SAEL LA VIE",   "skipper": "BOJAN GREGO",      "club": "NAS SAIL.CENTAR", "pts": "2"  },
+        { "pos": "3",  "sail": "23", "boat": "MAY",           "skipper": "MARTIN DITTRICH",  "club": "",                "pts": "3"  },
+        { "pos": "4",  "sail": "18", "boat": "JOKER",         "skipper": "KRISTOF DITTRICH", "club": "UYCWO",           "pts": "4"  },
+        { "pos": "5",  "sail": "14", "boat": "MARCH",         "skipper": "MARTIN EMER",      "club": "UYCWO",           "pts": "5"  },
+        { "pos": "6",  "sail": "16", "boat": "SAGITARIUS",    "skipper": "MARTIN HESPE",     "club": "CHIEM SEE YC",    "pts": "6"  },
+        { "pos": "7",  "sail": "4",  "boat": "ADA",           "skipper": "GREGOR PRIMC",     "club": "",                "pts": "7"  },
+        { "pos": "8",  "sail": "21", "boat": "BJOD",          "skipper": "KREŠIMIR MIKULEC", "club": "J.K.NEVERIN",     "pts": "8"  },
+        { "pos": "9",  "sail": "25", "boat": "JUNE",          "skipper": "KARL ALPHART",     "club": "KYC",             "pts": "9"  },
+        { "pos": "10", "sail": "7",  "boat": "STAR ELISABET", "skipper": "LEO MAGAŠIC",      "club": "J.K.PUNAT",       "pts": "10" }
+      ],
+      "races": []
+    },
+    {
+      "name": "Gruppe 4",
+      "type": "onedesign",
+      "overall": [
+        { "pos": "1", "sail": "15", "boat": "VELENOZA", "skipper": "JOSIP SPOLJARIC",     "club": "J.K.PLAV",  "pts": "1" },
+        { "pos": "2", "sail": "32", "boat": "GHOST",    "skipper": "ZVANE POROPAT",       "club": "J.K.GALEB", "pts": "2" },
+        { "pos": "3", "sail": "12", "boat": "ECHO",     "skipper": "ALEKSANDAR PEJNOVIĆ", "club": "J.K.PLAV",  "pts": "3" },
+        { "pos": "4", "sail": "27", "boat": "PETISA",   "skipper": "DINKO PETROV",        "club": "J.K.PLAV",  "pts": "4" },
+        { "pos": "5", "sail": "2",  "boat": "BOCACCIO", "skipper": "DAVOR VALENCIC",      "club": "Y.C.PUNAT", "pts": "5" }
+      ],
+      "races": []
+    },
+    {
+      "name": "Gruppe 7",
+      "type": "onedesign",
+      "overall": [
+        { "pos": "1", "sail": "8", "boat": "OTAVIĆ", "skipper": "DALIBOR MATIJAŠEVIĆ", "club": "J.K.GALEB", "pts": "1" }
+      ],
+      "races": []
+    }
+  ]
+}

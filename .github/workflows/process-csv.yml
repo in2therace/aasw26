@@ -1,0 +1,89 @@
+name: Ergebnis-CSV verarbeiten
+
+# Automatisch ausführen, wenn eine neue CSV-Datei in csv/ gepusht wird.
+# Voraussetzung: Repository-Secret "ANTHROPIC_API_KEY" muss gesetzt sein.
+# (GitHub → Repo-Settings → Secrets and variables → Actions → New repository secret)
+
+on:
+  push:
+    paths:
+      - 'csv/*.csv'
+  workflow_dispatch:
+    inputs:
+      csv_file:
+        description: 'CSV-Dateiname (relativ zum Repo-Root, z.B. csv/tag1.csv)'
+        required: true
+      day_label:
+        description: 'Renntag-Bezeichnung (z.B. "Tag 1")'
+        required: false
+        default: ''
+      date_str:
+        description: 'Datum (z.B. "30. Mai 2026")'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: process-csv
+  cancel-in-progress: false
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Abhängigkeiten installieren
+        run: pip install anthropic
+
+      - name: Geänderte CSV-Dateien ermitteln (bei Push)
+        id: changed
+        if: github.event_name == 'push'
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'csv/*.csv' 2>/dev/null || \
+                    git show --name-only HEAD --format="" -- 'csv/*.csv')
+          echo "files=$CHANGED" >> $GITHUB_OUTPUT
+          echo "Geänderte CSVs: $CHANGED"
+
+      - name: CSV verarbeiten (Push — automatisch erkannte Dateien)
+        if: github.event_name == 'push'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          for f in ${{ steps.changed.outputs.files }}; do
+            if [ -f "$f" ]; then
+              echo "Verarbeite: $f"
+              python3 scripts/csv_to_json.py "$f"
+            fi
+          done
+
+      - name: CSV verarbeiten (Manueller Start)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python3 scripts/csv_to_json.py \
+            "${{ github.event.inputs.csv_file }}" \
+            ${{ github.event.inputs.day_label && format('--day "{0}"', github.event.inputs.day_label) || '' }} \
+            ${{ github.event.inputs.date_str  && format('--date "{0}"', github.event.inputs.date_str)  || '' }}
+
+      - name: Ergebnis-JSON committen
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "Keine neuen Ergebnisse."
+          else
+            git commit -m "chore: Ergebnisse automatisch aktualisiert [skip ci]"
+            git push
+          fi

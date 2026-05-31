@@ -1,0 +1,99 @@
+{
+  "date": "31. Mai 2026",
+  "dayLabel": "Tag 1",
+  "classes": [
+    {
+      "name": "Alpe Adria Cup (ORC)",
+      "type": "orc",
+      "overall": [
+        { "pos": "1", "sail": "AUT 9",   "boat": "Klea",      "skipper": "Stephan Sch.", "club": "YCA",  "pts": "4"   },
+        { "pos": "2", "sail": "AUT 2",   "boat": "Fidelio",   "skipper": "Martin B.",    "club": "SVSC", "pts": "8"   },
+        { "pos": "3", "sail": "SLO 11",  "boat": "Agata",     "skipper": "Andrej K.",    "club": "JK",   "pts": "11"  },
+        { "pos": "4", "sail": "CRO 7",   "boat": "Bura",      "skipper": "Tomislav G.",  "club": "JK",   "pts": "14"  },
+        { "pos": "5", "sail": "AUT 14",  "boat": "Wind Rose", "skipper": "Klaus H.",     "club": "YCA",  "pts": "17"  },
+        { "pos": "6", "sail": "GER 3",   "boat": "Seahawk",   "skipper": "Peter F.",     "club": "NRV",  "pts": "DNF" },
+        { "pos": "7", "sail": "AUT 22",  "boat": "Liberty",   "skipper": "Werner K.",    "club": "YCA",  "pts": "22"  }
+      ],
+      "races": [
+        {
+          "label": "Rennen 1",
+          "rows": [
+            { "pos": "1", "sail": "AUT 9",  "boat": "Klea",      "skipper": "Stephan Sch.", "club": "YCA",  "pts": "1" },
+            { "pos": "2", "sail": "SLO 11", "boat": "Agata",     "skipper": "Andrej K.",    "club": "JK",   "pts": "2" },
+            { "pos": "3", "sail": "AUT 2",  "boat": "Fidelio",   "skipper": "Martin B.",    "club": "SVSC", "pts": "3" },
+            { "pos": "4", "sail": "CRO 7",  "boat": "Bura",      "skipper": "Tomislav G.",  "club": "JK",   "pts": "4" },
+            { "pos": "5", "sail": "AUT 14", "boat": "Wind Rose", "skipper": "Klaus H.",     "club": "YCA",  "pts": "5" },
+            { "pos": "6", "sail": "AUT 22", "boat": "Liberty",   "skipper": "Werner K.",    "club": "YCA",  "pts": "6" },
+            { "pos": "7", "sail": "GER 3",  "boat": "Seahawk",   "skipper": "Peter F.",     "club": "NRV",  "pts": "DNF" }
+          ]
+        },
+        {
+          "label": "Rennen 2",
+          "rows": [
+            { "pos": "1", "sail": "AUT 2",  "boat": "Fidelio",   "skipper": "Martin B.",    "club": "SVSC", "pts": "1" },
+            { "pos": "2", "sail": "AUT 9",  "boat": "Klea",      "skipper": "Stephan Sch.", "club": "YCA",  "pts": "2" },
+            { "pos": "3", "sail": "AUT 14", "boat": "Wind Rose", "skipper": "Klaus H.",     "club": "YCA",  "pts": "3" },
+            { "pos": "4", "sail": "CRO 7",  "boat": "Bura",      "skipper": "Tomislav G.",  "club": "JK",   "pts": "4" },
+            { "pos": "5", "sail": "SLO 11", "boat": "Agata",     "skipper": "Andrej K.",    "club": "JK",   "pts": "5" },
+            { "pos": "6", "sail": "GER 3",  "boat": "Seahawk",   "skipper": "Peter F.",     "club": "NRV",  "pts": "6" },
+            { "pos": "7", "sail": "AUT 22", "boat": "Liberty",   "skipper": "Werner K.",    "club": "YCA",  "pts": "7" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kärntner Cruising Trophy (ORC)",
+      "type": "orc",
+      "overall": [
+        { "pos": "1", "sail": "AUT 55",  "boat": "Seewolf",  "skipper": "Hannes M.",  "club": "UYCWö", "pts": "2" },
+        { "pos": "2", "sail": "AUT 71",  "boat": "Nixe",     "skipper": "Birgit L.",  "club": "YCA",   "pts": "5" },
+        { "pos": "3", "sail": "SLO 88",  "boat": "Galeb",    "skipper": "Marko Z.",   "club": "JK",    "pts": "7" },
+        { "pos": "4", "sail": "AUT 40",  "boat": "Aurora",   "skipper": "Sabine T.",  "club": "UYCWö", "pts": "9" }
+      ],
+      "races": [
+        {
+          "label": "Rennen 1",
+          "rows": [
+            { "pos": "1", "sail": "AUT 55", "boat": "Seewolf", "skipper": "Hannes M.", "club": "UYCWö", "pts": "1" },
+            { "pos": "2", "sail": "AUT 71", "boat": "Nixe",    "skipper": "Birgit L.", "club": "YCA",   "pts": "2" },
+            { "pos": "3", "sail": "SLO 88", "boat": "Galeb",   "skipper": "Marko Z.",  "club": "JK",    "pts": "3" },
+            { "pos": "4", "sail": "AUT 40", "boat": "Aurora",  "skipper": "Sabine T.", "club": "UYCWö", "pts": "4" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "36. Austria Cup — First 35",
+      "type": "onedesign",
+      "overall": [
+        { "pos": "1", "sail": "AUT 351", "boat": "Blue Moon",  "skipper": "Erich W.",  "club": "YCA",  "pts": "5"  },
+        { "pos": "2", "sail": "AUT 352", "boat": "Vento",      "skipper": "Lukas D.",  "club": "SVSC", "pts": "7"  },
+        { "pos": "3", "sail": "AUT 353", "boat": "Calypso",    "skipper": "Maria E.",  "club": "YCA",  "pts": "9"  },
+        { "pos": "4", "sail": "AUT 354", "boat": "Pegasus",    "skipper": "Florian J.","club": "UYCWö","pts": "12" },
+        { "pos": "5", "sail": "AUT 355", "boat": "Skiron",     "skipper": "Nina B.",   "club": "JK",   "pts": "DNF"}
+      ],
+      "races": []
+    },
+    {
+      "name": "Kärntner Racing Cup — Dehler 38 SQ",
+      "type": "onedesign",
+      "overall": [
+        { "pos": "1", "sail": "AUT 381", "boat": "Velox",      "skipper": "Daniel R.", "club": "UYCWö", "pts": "3" },
+        { "pos": "2", "sail": "AUT 382", "boat": "Tramontana", "skipper": "Sophie K.", "club": "YCA",   "pts": "6" },
+        { "pos": "3", "sail": "AUT 383", "boat": "Borealis",   "skipper": "Markus P.", "club": "SVSC",  "pts": "8" }
+      ],
+      "races": []
+    },
+    {
+      "name": "Alpe Adria Racing Cup — First 36",
+      "type": "onedesign",
+      "overall": [
+        { "pos": "1", "sail": "AUT 361", "boat": "Falcon",   "skipper": "Gerald S.", "club": "YCA",  "pts": "4"  },
+        { "pos": "2", "sail": "SLO 362", "boat": "Vihar",    "skipper": "Ana V.",    "club": "JK",   "pts": "6"  },
+        { "pos": "3", "sail": "CRO 363", "boat": "Maestral", "skipper": "Ivan B.",   "club": "JK",   "pts": "10" },
+        { "pos": "4", "sail": "AUT 364", "boat": "Comet",    "skipper": "Petra N.",  "club": "UYCWö","pts": "11" }
+      ],
+      "races": []
+    }
+  ]
+}

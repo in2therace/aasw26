@@ -8,17 +8,18 @@
     /* ===== Konfig: hier bei Bedarf anpassen ===== */
     /* Farbschema: In2theBlue / Alpe Adria Sailing Week (Navy + Türkis) */
     :root {
-      --slide-seconds: 6s;   /* Wechseldauer pro Bild */
-      --fade-seconds: 1s;    /* Dauer des Fade-Übergangs */
-      --navy-deep: #0c2448;  /* tiefes Navy (Logo) */
-      --navy: #15315a;       /* Navy */
-      --teal: #159ca8;       /* Türkis-Akzent (Logo) */
-      --teal-bright: #2bc0d4;/* helles Türkis für Highlights */
-      --panel: #12325c;      /* Hintergrund der Abschnitte */
-      --panel-edge: #1d5878; /* Rahmen der Abschnitte */
-      --ink: #eaf6fb;        /* helle Schrift */
-      --ink-dim: #8fb6cc;    /* gedämpfte Schrift */
-      --gap: 12px;           /* Abstand zwischen den Abschnitten */
+      --slide-seconds: 6s;      /* Wechseldauer Foto-Slider */
+      --fade-seconds: 1s;       /* Fade-Übergang Foto-Slider */
+      --result-fade: 0.8s;      /* Fade-Übergang Ergebnis-Karussell */
+      --navy-deep: #0c2448;
+      --navy: #15315a;
+      --teal: #159ca8;
+      --teal-bright: #2bc0d4;
+      --panel: #12325c;
+      --panel-edge: #1d5878;
+      --ink: #eaf6fb;
+      --ink-dim: #8fb6cc;
+      --gap: 12px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,7 +34,6 @@
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* Erzwingt 9:16, zentriert mit schwarzen Rändern falls Bildschirm abweicht */
     #stage {
       position: fixed;
       inset: 0;
@@ -46,8 +46,7 @@
       aspect-ratio: 9 / 16;
       height: 100%;
       max-width: 100%;
-      background:
-        radial-gradient(120% 60% at 50% 0%, var(--navy) 0%, var(--navy-deep) 60%, #07182f 100%);
+      background: radial-gradient(120% 60% at 50% 0%, var(--navy) 0%, var(--navy-deep) 60%, #07182f 100%);
       display: grid;
       grid-template-rows: 18% 40% 42%;
       gap: var(--gap);
@@ -70,40 +69,129 @@
       justify-content: center;
       gap: 28px;
       padding: 14px 22px;
-      background:
-        linear-gradient(160deg, #ffffff 0%, #eef7fb 100%);
+      background: linear-gradient(160deg, #ffffff 0%, #eef7fb 100%);
       border-color: #cfe6ef;
     }
-    #logo img {
-      height: auto;
-      width: auto;
-      object-fit: contain;
-    }
+    #logo img { height: auto; width: auto; object-fit: contain; }
     #logo .logo-aasw { max-height: 100%; max-width: 40%; }
     #logo .logo-yca  { max-height: 64%;  max-width: 28%; }
 
-    /* ===== Abschnitt 2: Ergebnis-Grid (6 Bilder) ===== */
-    #results { padding: 10px; }
-    #results-grid {
-      width: 100%;
-      height: 100%;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      gap: 8px;
-    }
-    #results-grid img {
-      width: 100%;
-      height: 100%;
-      min-width: 0;
-      min-height: 0;
-      object-fit: contain;
-      background: var(--navy-deep);
-      border: 1px solid var(--panel-edge);
-      border-radius: 8px;
+    /* ===== Abschnitt 2: Ergebnis-Karussell ===== */
+    #results { padding: 0; }
+
+    #results-carousel {
+      position: absolute;
+      inset: 0;
     }
 
-    /* ===== Abschnitt 3: Slider ===== */
+    .result-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity var(--result-fade) ease-in-out;
+      padding: 12px 16px 10px;
+    }
+    .result-slide.active { opacity: 1; }
+
+    .slide-header {
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--panel-edge);
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+    .slide-header .day-tag {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--teal-bright);
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+    .slide-header .class-name {
+      display: block;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.15;
+    }
+    .slide-header .race-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    /* Eine Tabelle pro Slide — volle Breite, gut lesbar */
+    .table-wrap {
+      flex: 1;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .table-wrap table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;   /* Startwert — wird per JS an die Höhe angepasst */
+      line-height: 1.3;
+    }
+
+    .table-wrap thead th {
+      background: var(--teal);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.78em;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.32em 0.55em;
+      text-align: left;
+    }
+
+    .table-wrap td {
+      padding: 0.32em 0.55em;
+      color: var(--ink);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 0;          /* forces ellipsis in table cells */
+    }
+
+    .table-wrap tbody tr:nth-child(even) td {
+      background: rgba(255,255,255,0.04);
+    }
+
+    .table-wrap th.col-pos,
+    .table-wrap td.col-pos { text-align: center; width: 2em; max-width: none; }
+
+    .table-wrap th.col-pts,
+    .table-wrap td.col-pts { text-align: right; width: 3em; max-width: none; font-weight: 700; }
+
+    .table-wrap th.col-sail,
+    .table-wrap td.col-sail { color: var(--ink-dim); width: 4.5em; max-width: none; }
+
+    .table-wrap td.col-club { color: var(--ink-dim); }
+
+    .results-status {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-dim);
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 20px;
+    }
+    .results-status.hidden { display: none; }
+
+    /* ===== Abschnitt 3: Foto-Slider ===== */
     #slider .slide {
       position: absolute;
       inset: 0;
@@ -132,147 +220,249 @@
 <body>
   <div id="stage">
     <div id="frame">
+
       <section id="logo" class="section">
         <img class="logo-aasw" src="assets/AASW_interhome.png" alt="Alpe Adria Sailing Week – powered by Interhome" />
-        <img class="logo-yca" src="assets/YCA_Logo_Flagge.png" alt="Yacht Club Austria" />
+        <img class="logo-yca"  src="assets/YCA_Logo_Flagge.png" alt="Yacht Club Austria" />
       </section>
 
       <section id="results" class="section">
-        <div id="results-grid"></div>
-        <div id="results-status" class="status">Ergebnisse werden geladen…</div>
+        <div id="results-carousel"></div>
+        <div id="results-status" class="results-status">Ergebnisse werden geladen…</div>
       </section>
 
       <section id="slider" class="section">
-        <div id="status" class="status">Bilder werden geladen…</div>
+        <div id="slider-status" class="status">Bilder werden geladen…</div>
       </section>
+
     </div>
   </div>
 
   <script>
     // ===== Konfiguration =====
-    const REPO = "in2therace/aasw26";   // GitHub owner/repo
-    const BRANCH = "main";
-    const SLIDER_DIR = "images";         // Ordner für den Bilder-Slider (unten)
-    const RESULTS_DIR = "results";       // Ordner für die Ergebnis-Bilder (Grid, Mitte)
-    const SLIDE_MS = 6000;               // Wechseldauer (muss zu --slide-seconds passen)
-    const REFRESH_MS = 3 * 60 * 1000;    // Bilderlisten alle 3 Min neu laden
-    const IMG_RE = /\.(jpe?g|png|gif|webp|svg)$/i;
+    const REPO           = "in2therace/aasw26";
+    const BRANCH         = "main";
+    const SLIDER_DIR     = "images";
+    const DATA_DIR       = "data";
+    const SLIDE_MS       = 6000;         // Foto-Slider: Wechseldauer (ms)
+    const RESULT_SLIDE_MS = 15000;       // Ergebnis-Karussell: Wechseldauer (ms)
+    const REFRESH_MS     = 3 * 60 * 1000;
+    const IMG_RE         = /\.(jpe?g|png|gif|webp|svg)$/i;
 
-    const slider = document.getElementById("slider");
-    const status = document.getElementById("status");
-    const resultsGrid = document.getElementById("results-grid");
-    const resultsStatus = document.getElementById("results-status");
-
-    let slides = [];        // DOM-Elemente der aktuellen Slides
-    let currentUrls = "";   // Signatur der aktuell angezeigten Slider-Bilder
-    let resultsSig = "";    // Signatur der aktuell angezeigten Ergebnis-Bilder
-    let idx = 0;
-    let timer = null;
-
+    // ===== Hilfsfunktionen =====
     function setStatus(el, msg) {
       if (!msg) { el.classList.add("hidden"); return; }
       el.textContent = msg;
       el.classList.remove("hidden");
     }
 
-    // Bilder aus einem Ordner holen.
-    // 1) Manifest <dir>/images.json — wird vom GitHub Action automatisch aktuell gehalten,
-    //    kein API-Limit, wird über GitHub Pages ausgeliefert. Das ist der Normalweg.
-    // 2) Fallback GitHub-API — nur falls kein Manifest da ist (Achtung: 60 Anfragen/Std/IP).
+    // Bilder-URLs aus Manifest oder GitHub-API holen
     async function fetchImageUrls(dir) {
       try {
         const res = await fetch(`${dir}/images.json?_=${Date.now()}`, { cache: "no-store" });
         if (res.ok) {
           const names = await res.json();
-          const urls = names
-            .filter(n => IMG_RE.test(n))
-            .map(n => `${dir}/${encodeURIComponent(n)}`);
+          const urls = names.filter(n => IMG_RE.test(n)).map(n => `${dir}/${encodeURIComponent(n)}`);
           if (urls.length) return urls;
         }
-      } catch (e) { /* fällt unten auf die API zurück */ }
+      } catch (e) { /* Fallback */ }
 
       try {
         const api = `https://api.github.com/repos/${REPO}/contents/${dir}?ref=${BRANCH}`;
         const res = await fetch(api, { headers: { Accept: "application/vnd.github+json" } });
         if (res.ok) {
           const items = await res.json();
-          const urls = items
+          return items
             .filter(it => it.type === "file" && IMG_RE.test(it.name))
             .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
             .map(it => it.download_url);
-          if (urls.length) return urls;
         }
       } catch (e) { /* nichts */ }
 
       return [];
     }
 
-    // ===== Ergebnis-Grid (Mitte) =====
-    async function loadResults() {
-      const urls = await fetchImageUrls(RESULTS_DIR);
-      const sig = urls.join("|");
+    // ===== Ergebnis-Karussell (Mitte) =====
+    const resultsCarousel = document.getElementById("results-carousel");
+    const resultsStatus   = document.getElementById("results-status");
+    let resultTimer = null;
+    let currentSlides = [];
 
-      if (!urls.length) {
-        if (resultsGrid.children.length) return; // schon was da -> nicht leeren
-        setStatus(resultsStatus, "Noch keine Bilder im Ordner /results");
-        return;
+    async function loadResultsCarousel() {
+      try {
+        const manifest = await fetch(`${DATA_DIR}/manifest.json?_=${Date.now()}`, { cache: "no-store" });
+        if (!manifest.ok) throw new Error("kein Manifest");
+        const { current, days } = await manifest.json();
+        const dayFile = days.find(d => d.includes(current)) ?? days.at(-1);
+        if (!dayFile) throw new Error("kein Tag");
+        const dayRes = await fetch(`${DATA_DIR}/${dayFile}`, { cache: "no-store" });
+        if (!dayRes.ok) throw new Error("Tag nicht gefunden");
+        const day = await dayRes.json();
+        buildCarousel(day);
+      } catch (e) {
+        if (!resultsCarousel.children.length)
+          setStatus(resultsStatus, "Noch keine Ergebnisse verfügbar.");
       }
-      if (sig === resultsSig) return; // keine Änderung
-      resultsSig = sig;
-
-      setStatus(resultsStatus, null);
-      resultsGrid.innerHTML = "";
-      urls.forEach(url => {
-        const img = document.createElement("img");
-        img.src = url;
-        img.alt = "Ergebnis";
-        resultsGrid.appendChild(img);
-      });
     }
 
-    function buildSlides(urls) {
+    function buildCarousel(day) {
+      resultsCarousel.innerHTML = "";
+      if (resultTimer) clearInterval(resultTimer);
+
+      // Eine Tabelle pro Slide.
+      //  - ORC-Klassen (type "orc"): Gesamtwertung + eine Slide je Rennen.
+      //  - Einheitsklassen (type "onedesign"): nur Gesamtwertung.
+      const slides = [];
+      for (const cls of day.classes) {
+        const type = String(cls.type || "").toLowerCase();
+        const races = Array.isArray(cls.races) ? cls.races : [];
+        const showRaces = type !== "onedesign" && races.length > 0;
+
+        slides.push(makeSlide(day, cls, "Gesamtwertung", cls.overall || []));
+        if (showRaces) {
+          for (const race of races) {
+            slides.push(makeSlide(day, cls, race.label, race.rows || []));
+          }
+        }
+      }
+      if (!slides.length) return;
+
+      setStatus(resultsStatus, null);
+      let ridx = 0;
+      slides.forEach((s, i) => {
+        if (i === 0) s.classList.add("active");
+        resultsCarousel.appendChild(s);
+      });
+
+      // Schriftgröße jeder Tabelle an die verfügbare Höhe anpassen
+      currentSlides = slides;
+      fitAllSlides();
+
+      if (slides.length > 1) {
+        resultTimer = setInterval(() => {
+          slides[ridx].classList.remove("active");
+          ridx = (ridx + 1) % slides.length;
+          slides[ridx].classList.add("active");
+          fitTableFont(slides[ridx]);
+        }, RESULT_SLIDE_MS);
+      }
+    }
+
+    // Tabelle so skalieren, dass alle Zeilen in den Panel-Bereich passen.
+    // Kleine Felder werden größer, große Felder kleiner — immer ohne Überlauf.
+    function fitTableFont(slide) {
+      const wrap  = slide.querySelector(".table-wrap");
+      const table = wrap && wrap.querySelector("table");
+      if (!table || !wrap.clientHeight) return;
+      const MIN = 0.42, MAX = 1.0;        // rem — Obergrenze, damit Spalten nicht abgeschnitten werden
+      let lo = MIN, hi = MAX, best = MIN;
+      for (let i = 0; i < 14; i++) {
+        const mid = (lo + hi) / 2;
+        table.style.fontSize = mid + "rem";
+        const fitsV = table.scrollHeight <= wrap.clientHeight;
+        const fitsH = table.scrollWidth  <= wrap.clientWidth + 1;
+        if (fitsV && fitsH) { best = mid; lo = mid; }
+        else { hi = mid; }
+      }
+      table.style.fontSize = best + "rem";
+    }
+
+    function fitAllSlides(attempt = 0) {
+      const wrap = currentSlides[0] && currentSlides[0].querySelector(".table-wrap");
+      // Layout evtl. noch nicht fertig (Höhe 0) → kurz erneut versuchen
+      if ((!wrap || !wrap.clientHeight) && attempt < 30) {
+        setTimeout(() => fitAllSlides(attempt + 1), 60);
+        return;
+      }
+      currentSlides.forEach(fitTableFont);
+    }
+
+    function makeSlide(day, cls, raceLabel, rows) {
+      const COLS   = ["pos", "sail", "boat", "skipper", "club", "pts"];
+      const LABELS = { pos: "#", sail: "Segel", boat: "Boot", skipper: "Skipper", club: "Club", pts: "Pkt" };
+      const CLS    = { pos: "col-pos", sail: "col-sail", club: "col-club", pts: "col-pts" };
+
+      const div = document.createElement("div");
+      div.className = "result-slide";
+
+      const headerHtml = `
+        <div class="slide-header">
+          <span class="day-tag">${escHtml(day.dayLabel)} &mdash; ${escHtml(day.date)}</span>
+          <span class="class-name">${escHtml(cls.name)}</span>
+          <span class="race-label">${escHtml(raceLabel)}</span>
+        </div>`;
+
+      const thHtml = COLS.map(c => `<th class="${CLS[c]||""}">${LABELS[c]}</th>`).join("");
+      const tbodyHtml = (rows || []).map(r =>
+        `<tr>${COLS.map(c => `<td class="${CLS[c]||""}">${escHtml(String(r[c]??""))}</td>`).join("")}</tr>`
+      ).join("");
+
+      div.innerHTML = `${headerHtml}
+        <div class="table-wrap"><table>
+          <thead><tr>${thHtml}</tr></thead>
+          <tbody>${tbodyHtml}</tbody>
+        </table></div>`;
+      return div;
+    }
+
+    function escHtml(s) {
+      return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+    }
+
+    // ===== Foto-Slider (unten) =====
+    const slider      = document.getElementById("slider");
+    const sliderStatus = document.getElementById("slider-status");
+    let photoSlides  = [];
+    let currentUrls  = "";
+    let pidx         = 0;
+    let slideTimer   = null;
+
+    function buildPhotoSlides(urls) {
       slider.querySelectorAll(".slide").forEach(el => el.remove());
-      slides = urls.map(url => {
+      photoSlides = urls.map(url => {
         const div = document.createElement("div");
         div.className = "slide";
         div.style.backgroundImage = `url("${url}")`;
         slider.appendChild(div);
         return div;
       });
-      idx = 0;
-      if (slides.length) slides[0].classList.add("active");
+      pidx = 0;
+      if (photoSlides.length) photoSlides[0].classList.add("active");
     }
 
-    function advance() {
-      if (slides.length < 2) return;
-      slides[idx].classList.remove("active");
-      idx = (idx + 1) % slides.length;
-      slides[idx].classList.add("active");
+    function advancePhoto() {
+      if (photoSlides.length < 2) return;
+      photoSlides[pidx].classList.remove("active");
+      pidx = (pidx + 1) % photoSlides.length;
+      photoSlides[pidx].classList.add("active");
     }
 
     async function loadAndRender() {
       const urls = await fetchImageUrls(SLIDER_DIR);
       const sig = urls.join("|");
-
       if (!urls.length) {
-        if (slides.length) return; // schon was angezeigt -> nicht leeren
-        setStatus(status, "Noch keine Bilder im Ordner /images");
+        if (!photoSlides.length) setStatus(sliderStatus, "Noch keine Bilder im Ordner /images");
         return;
       }
-
-      if (sig === currentUrls) return; // keine Änderung
+      if (sig === currentUrls) return;
       currentUrls = sig;
-
-      setStatus(status, null);
-      buildSlides(urls);
-
-      if (timer) clearInterval(timer);
-      if (slides.length > 1) timer = setInterval(advance, SLIDE_MS);
+      setStatus(sliderStatus, null);
+      buildPhotoSlides(urls);
+      if (slideTimer) clearInterval(slideTimer);
+      if (photoSlides.length > 1) slideTimer = setInterval(advancePhoto, SLIDE_MS);
     }
 
-    loadResults();
+    // Tabellen bei Größenänderung des Fensters neu einpassen
+    let fitResizeTimer = null;
+    window.addEventListener("resize", () => {
+      clearTimeout(fitResizeTimer);
+      fitResizeTimer = setTimeout(fitAllSlides, 200);
+    });
+
+    // ===== Start =====
+    loadResultsCarousel();
     loadAndRender();
-    setInterval(loadResults, REFRESH_MS);
+    setInterval(loadResultsCarousel, REFRESH_MS);
     setInterval(loadAndRender, REFRESH_MS);
   </script>
 </body>
