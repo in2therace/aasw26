@@ -22,7 +22,7 @@
         { "pos": "14", "sail": "64", "boat": "Hugo",             "skipper": "Daniel Kirchmeier",    "club": "YCA Crew KTN, KSVL",                 "pts": "14" },
         { "pos": "15", "sail": "59", "boat": "Daisy",            "skipper": "Peter Beer",           "club": "",                                   "pts": "15" },
         { "pos": "16", "sail": "72", "boat": "Miles Ahead",      "skipper": "Michael Kroess",       "club": "",                                   "pts": "16" },
-        { "pos": "17", "sail": "43", "boat": "Box of Chocolate", "skipper": "Florian Kozak",        "club": "",                                   "pts": "18" }
+        { "pos": "17", "sail": "43", "boat": "Box of Chocolate", "skipper": "Florian Kozak",        "club": "",                                   "pts": "DNF" }
       ],
       "races": [
         {
@@ -77,8 +77,8 @@
         { "pos": "6",  "sail": "6",  "boat": "Leo",         "skipper": "Ulrich Kahlhammer",  "club": "KSVL",                                       "pts": "6"  },
         { "pos": "7",  "sail": "10", "boat": "Gemini",      "skipper": "Daniel Botz",        "club": "YCA Crew STMK",                              "pts": "7"  },
         { "pos": "8",  "sail": "8",  "boat": "Aries",       "skipper": "Greta Donner",       "club": "",                                           "pts": "8"  },
-        { "pos": "9",  "sail": "3",  "boat": "Scorpio",     "skipper": "Johannes Rupitz",    "club": "YCA Jugend",                                 "pts": "10" },
-        { "pos": "10", "sail": "1",  "boat": "Taurus",      "skipper": "Alexandra Haidinger", "club": "",                                          "pts": "10" }
+        { "pos": "9",  "sail": "3",  "boat": "Scorpio",     "skipper": "Johannes Rupitz",    "club": "YCA Jugend",                                 "pts": "DNS" },
+        { "pos": "10", "sail": "1",  "boat": "Taurus",      "skipper": "Alexandra Haidinger", "club": "",                                          "pts": "DNS" }
       ],
       "races": []
     },
