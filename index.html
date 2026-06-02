@@ -48,7 +48,7 @@
       max-width: 100%;
       background: radial-gradient(120% 60% at 50% 0%, var(--navy) 0%, var(--navy-deep) 60%, #07182f 100%);
       display: grid;
-      grid-template-rows: 18% 40% 42%;
+      grid-template-rows: 12% 68% 20%;
       gap: var(--gap);
       padding: var(--gap);
     }
@@ -83,19 +83,19 @@
       position: absolute;
       top: 0; left: 0; right: 0;
       z-index: 2;
-      padding: 10px 18px 9px;
-      font-size: 1.5rem;
+      padding: 16px 22px 14px;
+      font-size: 2.8rem;
       font-weight: 900;
       color: var(--ink);
       text-transform: uppercase;
-      letter-spacing: 3px;
-      border-bottom: 2px solid var(--teal);
+      letter-spacing: 4px;
+      border-bottom: 3px solid var(--teal);
       background: linear-gradient(160deg, var(--panel) 0%, var(--navy-deep) 100%);
     }
 
     #results-carousel {
       position: absolute;
-      inset: 50px 0 46px 0;
+      inset: 82px 0 78px 0;
     }
 
     .result-slide {
@@ -112,12 +112,12 @@
     .slide-header {
       flex-shrink: 0;
       border-bottom: 1px solid var(--panel-edge);
-      padding-bottom: 6px;
-      margin-bottom: 8px;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
     }
     .slide-header .day-tag {
       display: block;
-      font-size: 0.6rem;
+      font-size: 1.0rem;
       font-weight: 700;
       color: var(--teal-bright);
       letter-spacing: 1.8px;
@@ -125,7 +125,7 @@
     }
     .slide-header .class-name {
       display: block;
-      font-size: 1.05rem;
+      font-size: 1.8rem;
       font-weight: 800;
       color: var(--ink);
       text-transform: uppercase;
@@ -134,12 +134,12 @@
     }
     .slide-header .race-label {
       display: block;
-      font-size: 0.72rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--ink-dim);
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     /* Tabellen-Bereich: 1-spaltig oder 2-spaltig je nach Bootszahl */
@@ -222,24 +222,24 @@
       z-index: 5;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      padding: 8px 16px 0;
-      border-top: 1px solid var(--panel-edge);
+      gap: 10px;
+      padding: 14px 20px 0;
+      border-top: 2px solid var(--panel-edge);
       background: linear-gradient(160deg, var(--panel) 0%, var(--navy-deep) 100%);
       pointer-events: none;
     }
     #photo-footer-link {
       text-align: center;
-      font-size: 0.82rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--ink);
     }
     #photo-footer-link b { color: var(--teal-bright); }
     #photo-progress {
-      height: 6px;
-      border-radius: 4px;
+      height: 14px;
+      border-radius: 8px;
       background: rgba(255,255,255,0.18);
       overflow: hidden;
     }
@@ -435,7 +435,7 @@
       const rt    = slide.querySelector(".result-tables");
       if (!rt || !rt.clientHeight) return;
       const wraps = [...rt.querySelectorAll(".table-wrap")];
-      const MIN = 0.42, MAX = 1.0;
+      const MIN = 0.42, MAX = 2.2;
       let lo = MIN, hi = MAX, best = MIN;
       for (let i = 0; i < 14; i++) {
         const mid = (lo + hi) / 2;
@@ -461,7 +461,7 @@
       currentSlides.forEach(fitTableFont);
     }
 
-    const SPLIT_THRESHOLD = 12;   // > N Boote → 2-Spalten-Layout
+    const SPLIT_THRESHOLD = 24;   // > N Boote → 2-Spalten-Layout
 
     function makeTableHtml(rows, cols, labels, clsMap) {
       const thHtml = cols.map(c => `<th class="${clsMap[c]||""}">${labels[c]}</th>`).join("");
