@@ -1,0 +1,135 @@
+{
+  "date": "1. Juni 2026",
+  "dayLabel": "Tag 1",
+  "classes": [
+    {
+      "name": "Alpe Adria Cup (ORC)",
+      "type": "orc",
+      "overall": [
+        { "pos": "1",  "sail": "25", "boat": "Joker",            "skipper": "Christof Dittrich",    "club": "",                                   "pts": "1"  },
+        { "pos": "2",  "sail": "68", "boat": "Vento Cadela",     "skipper": "Christian Pfann",      "club": "",                                   "pts": "2"  },
+        { "pos": "3",  "sail": "28", "boat": "Trinity+",         "skipper": "Julian Kircher",       "club": "YCA Crew KTN, UYCWö",                "pts": "3"  },
+        { "pos": "4",  "sail": "54", "boat": "Desidera",         "skipper": "Christian Horvath",    "club": "Uycas, SSCS, YCA Crew OÖ",           "pts": "4"  },
+        { "pos": "5",  "sail": "50", "boat": "Release",          "skipper": "Maximilian Miller",    "club": "Deutscher Regatta Segelclub e.V.",  "pts": "5"  },
+        { "pos": "6",  "sail": "71", "boat": "Desperado",        "skipper": "Otto Stattmann",       "club": "YCA Crew KTN, UYCWö",                "pts": "6"  },
+        { "pos": "7",  "sail": "62", "boat": "Istros",           "skipper": "Thomas Ritzau",        "club": "",                                   "pts": "7"  },
+        { "pos": "8",  "sail": "78", "boat": "Belle Brise",      "skipper": "Friedwart Rath",       "club": "",                                   "pts": "8"  },
+        { "pos": "9",  "sail": "76", "boat": "Bellissima",       "skipper": "Michael Mokre",        "club": "SCA",                                "pts": "9"  },
+        { "pos": "10", "sail": "58", "boat": "Elaya",            "skipper": "Thomas Dieplinger",    "club": "SCAt, YCA Crew OÖ",                  "pts": "10" },
+        { "pos": "11", "sail": "51", "boat": "Emilia",           "skipper": "Alfred Vorderegger",   "club": "YCBS",                               "pts": "11" },
+        { "pos": "12", "sail": "74", "boat": "Ikarus",           "skipper": "Günther Reder",        "club": "YCA OÖ, WSCW",                       "pts": "12" },
+        { "pos": "13", "sail": "56", "boat": "Destiny",          "skipper": "Laura Lüttin",         "club": "",                                   "pts": "13" },
+        { "pos": "14", "sail": "64", "boat": "Hugo",             "skipper": "Daniel Kirchmeier",    "club": "YCA Crew KTN, KSVL",                 "pts": "14" },
+        { "pos": "15", "sail": "59", "boat": "Daisy",            "skipper": "Peter Beer",           "club": "",                                   "pts": "15" },
+        { "pos": "16", "sail": "72", "boat": "Miles Ahead",      "skipper": "Michael Kroess",       "club": "",                                   "pts": "16" },
+        { "pos": "17", "sail": "43", "boat": "Box of Chocolate", "skipper": "Florian Kozak",        "club": "",                                   "pts": "18" }
+      ],
+      "races": [
+        {
+          "label": "Rennen 1",
+          "rows": [
+            { "pos": "1",  "sail": "25", "boat": "Joker",            "skipper": "Christof Dittrich",    "club": "",                                   "pts": "1"   },
+            { "pos": "2",  "sail": "68", "boat": "Vento Cadela",     "skipper": "Christian Pfann",      "club": "",                                   "pts": "2"   },
+            { "pos": "3",  "sail": "28", "boat": "Trinity+",         "skipper": "Julian Kircher",       "club": "YCA Crew KTN, UYCWö",                "pts": "3"   },
+            { "pos": "4",  "sail": "54", "boat": "Desidera",         "skipper": "Christian Horvath",    "club": "Uycas, SSCS, YCA Crew OÖ",           "pts": "4"   },
+            { "pos": "5",  "sail": "50", "boat": "Release",          "skipper": "Maximilian Miller",    "club": "Deutscher Regatta Segelclub e.V.",  "pts": "5"   },
+            { "pos": "6",  "sail": "71", "boat": "Desperado",        "skipper": "Otto Stattmann",       "club": "YCA Crew KTN, UYCWö",                "pts": "6"   },
+            { "pos": "7",  "sail": "62", "boat": "Istros",           "skipper": "Thomas Ritzau",        "club": "",                                   "pts": "7"   },
+            { "pos": "8",  "sail": "78", "boat": "Belle Brise",      "skipper": "Friedwart Rath",       "club": "",                                   "pts": "8"   },
+            { "pos": "9",  "sail": "76", "boat": "Bellissima",       "skipper": "Michael Mokre",        "club": "SCA",                                "pts": "9"   },
+            { "pos": "10", "sail": "58", "boat": "Elaya",            "skipper": "Thomas Dieplinger",    "club": "SCAt, YCA Crew OÖ",                  "pts": "10"  },
+            { "pos": "11", "sail": "51", "boat": "Emilia",           "skipper": "Alfred Vorderegger",   "club": "YCBS",                               "pts": "11"  },
+            { "pos": "12", "sail": "74", "boat": "Ikarus",           "skipper": "Günther Reder",        "club": "YCA OÖ, WSCW",                       "pts": "12"  },
+            { "pos": "13", "sail": "56", "boat": "Destiny",          "skipper": "Laura Lüttin",         "club": "",                                   "pts": "13"  },
+            { "pos": "14", "sail": "64", "boat": "Hugo",             "skipper": "Daniel Kirchmeier",    "club": "YCA Crew KTN, KSVL",                 "pts": "14"  },
+            { "pos": "15", "sail": "59", "boat": "Daisy",            "skipper": "Peter Beer",           "club": "",                                   "pts": "15"  },
+            { "pos": "16", "sail": "72", "boat": "Miles Ahead",      "skipper": "Michael Kroess",       "club": "",                                   "pts": "16"  },
+            { "pos": "17", "sail": "43", "boat": "Box of Chocolate", "skipper": "Florian Kozak",        "club": "",                                   "pts": "DNF" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Alpe Adria Racing Cup / First 36",
+      "type": "onedesign",
+      "overall": [
+        { "pos": "1", "sail": "65", "boat": "June",     "skipper": "Karl Alphart",    "club": "KYC",                            "pts": "1" },
+        { "pos": "2", "sail": "66", "boat": "February",  "skipper": "Niko Resch",      "club": "",                               "pts": "2" },
+        { "pos": "3", "sail": "61", "boat": "May",       "skipper": "Martin Dittrich", "club": "UYCWö, YCA Crew KTN",            "pts": "3" },
+        { "pos": "4", "sail": "77", "boat": "Katina",    "skipper": "Martin Rupitz",   "club": "YCA Crew KTN, KYCPö",            "pts": "4" },
+        { "pos": "5", "sail": "67", "boat": "August",    "skipper": "Robert Orlitsch", "club": "KYCPö",                          "pts": "5" },
+        { "pos": "6", "sail": "69", "boat": "April",     "skipper": "Peter Schicho",   "club": "UYCWö, KYCO",                    "pts": "6" },
+        { "pos": "7", "sail": "60", "boat": "March",     "skipper": "Martin Emmer",    "club": "UYCWö",                          "pts": "7" },
+        { "pos": "8", "sail": "70", "boat": "July",      "skipper": "Susann Beucke",   "club": "YCA Crew Kärnten Mädelsboot",    "pts": "8" },
+        { "pos": "9", "sail": "52", "boat": "January",   "skipper": "Gert Pucher",     "club": "Kärntner Yachtclub Döbriach",    "pts": "9" }
+      ],
+      "races": []
+    },
+    {
+      "name": "Austria Cup / First 35",
+      "type": "onedesign",
+      "overall": [
+        { "pos": "1",  "sail": "7",  "boat": "Libra",       "skipper": "Christian Bayer",    "club": "OESV",                                       "pts": "1"  },
+        { "pos": "2",  "sail": "2",  "boat": "Aquarius",    "skipper": "Anton Piegler",      "club": "Sail4one",                                   "pts": "2"  },
+        { "pos": "3",  "sail": "5",  "boat": "Capricorn",   "skipper": "Jan Flöter",         "club": "Akademische Segelgruppe Karlsruhe e.V.",    "pts": "3"  },
+        { "pos": "4",  "sail": "9",  "boat": "Virgo",       "skipper": "Jörg Schober",       "club": "KSVL, YCA Crew KTN",                         "pts": "4"  },
+        { "pos": "5",  "sail": "4",  "boat": "Saggitarius", "skipper": "Martin Hespe",       "club": "Chiemsee-Yacht-Club e.V.",                  "pts": "5"  },
+        { "pos": "6",  "sail": "6",  "boat": "Leo",         "skipper": "Ulrich Kahlhammer",  "club": "KSVL",                                       "pts": "6"  },
+        { "pos": "7",  "sail": "10", "boat": "Gemini",      "skipper": "Daniel Botz",        "club": "YCA Crew STMK",                              "pts": "7"  },
+        { "pos": "8",  "sail": "8",  "boat": "Aries",       "skipper": "Greta Donner",       "club": "",                                           "pts": "8"  },
+        { "pos": "9",  "sail": "3",  "boat": "Scorpio",     "skipper": "Johannes Rupitz",    "club": "YCA Jugend",                                 "pts": "10" },
+        { "pos": "10", "sail": "1",  "boat": "Taurus",      "skipper": "Alexandra Haidinger", "club": "",                                          "pts": "10" }
+      ],
+      "races": []
+    },
+    {
+      "name": "Kärntner Cruising Trophy (ORC)",
+      "type": "orc",
+      "overall": [
+        { "pos": "1",  "sail": "25", "boat": "Joker",      "skipper": "Christof Dittrich",  "club": "", "pts": "1"  },
+        { "pos": "2",  "sail": "9",  "boat": "Virgo",      "skipper": "Jörg Schober",       "club": "", "pts": "2"  },
+        { "pos": "3",  "sail": "6",  "boat": "Leo",        "skipper": "Ulrich Kahlhammer",  "club": "", "pts": "3"  },
+        { "pos": "4",  "sail": "71", "boat": "Desperado",  "skipper": "Otto Stattmann",     "club": "", "pts": "4"  },
+        { "pos": "5",  "sail": "78", "boat": "Belle Brise", "skipper": "Friedwart Rath",    "club": "", "pts": "5"  },
+        { "pos": "6",  "sail": "67", "boat": "August",     "skipper": "Robert Orlitsch",    "club": "", "pts": "7"  },
+        { "pos": "7",  "sail": "77", "boat": "Katina",     "skipper": "Martin Rupitz",      "club": "", "pts": "7"  },
+        { "pos": "8",  "sail": "61", "boat": "May",        "skipper": "Martin Dittrich",    "club": "", "pts": "7"  },
+        { "pos": "9",  "sail": "69", "boat": "April",      "skipper": "Peter Schicho",      "club": "", "pts": "9"  },
+        { "pos": "10", "sail": "52", "boat": "January",    "skipper": "Gert Pucher",        "club": "", "pts": "10" },
+        { "pos": "11", "sail": "64", "boat": "Hugo",       "skipper": "Daniel Kirchmeier",  "club": "", "pts": "11" }
+      ],
+      "races": [
+        {
+          "label": "Rennen 1",
+          "rows": [
+            { "pos": "1",  "sail": "25", "boat": "Joker",      "skipper": "Christof Dittrich",  "club": "", "pts": "1"  },
+            { "pos": "2",  "sail": "9",  "boat": "Virgo",      "skipper": "Jörg Schober",       "club": "", "pts": "2"  },
+            { "pos": "3",  "sail": "6",  "boat": "Leo",        "skipper": "Ulrich Kahlhammer",  "club": "", "pts": "3"  },
+            { "pos": "4",  "sail": "71", "boat": "Desperado",  "skipper": "Otto Stattmann",     "club": "", "pts": "4"  },
+            { "pos": "5",  "sail": "78", "boat": "Belle Brise", "skipper": "Friedwart Rath",    "club": "", "pts": "5"  },
+            { "pos": "6",  "sail": "67", "boat": "August",     "skipper": "Robert Orlitsch",    "club": "", "pts": "7"  },
+            { "pos": "7",  "sail": "77", "boat": "Katina",     "skipper": "Martin Rupitz",      "club": "", "pts": "7"  },
+            { "pos": "8",  "sail": "61", "boat": "May",        "skipper": "Martin Dittrich",    "club": "", "pts": "7"  },
+            { "pos": "9",  "sail": "69", "boat": "April",      "skipper": "Peter Schicho",      "club": "", "pts": "9"  },
+            { "pos": "10", "sail": "52", "boat": "January",    "skipper": "Gert Pucher",        "club": "", "pts": "10" },
+            { "pos": "11", "sail": "64", "boat": "Hugo",       "skipper": "Daniel Kirchmeier",  "club": "", "pts": "11" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kärntner Racing Cup / Dehler 38 SQ",
+      "type": "onedesign",
+      "overall": [
+        { "pos": "1", "sail": "73", "boat": "Bubba Gump",     "skipper": "Peter Fritsch",          "club": "YCA Crew Kärnten, KYCPÖ", "pts": "1" },
+        { "pos": "2", "sail": "75", "boat": "Carla",          "skipper": "Gerold Schmierer",       "club": "Wäscherutsche Sailing",   "pts": "2" },
+        { "pos": "3", "sail": "79", "boat": "Jenny",          "skipper": "Thomas Reisinger",       "club": "",                        "pts": "3" },
+        { "pos": "4", "sail": "29", "boat": "Aurelie",        "skipper": "Andreas Pfurtscheller",  "club": "",                        "pts": "4" },
+        { "pos": "5", "sail": "57", "boat": "Lieutenant Dan", "skipper": "Max Hahn",               "club": "",                        "pts": "5" },
+        { "pos": "6", "sail": "55", "boat": "Just B!",        "skipper": "Jasmin Otto",            "club": " YCA  Crew Steiermark",   "pts": "6" },
+        { "pos": "7", "sail": "53", "boat": "Mrs. Gump.",     "skipper": "Stefan Neudeck",         "club": "",                        "pts": "7" }
+      ],
+      "races": []
+    }
+  ]
+}
