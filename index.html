@@ -79,9 +79,23 @@
     /* ===== Abschnitt 2: Ergebnis-Karussell ===== */
     #results { padding: 0; }
 
+    #results-heading {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 2;
+      padding: 10px 18px 9px;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      border-bottom: 2px solid var(--teal);
+      background: linear-gradient(160deg, var(--panel) 0%, var(--navy-deep) 100%);
+    }
+
     #results-carousel {
       position: absolute;
-      inset: 0;
+      inset: 50px 0 0 0;
     }
 
     .result-slide {
@@ -202,6 +216,39 @@
     .results-status.hidden { display: none; }
 
     /* ===== Abschnitt 3: Foto-Slider ===== */
+    #photo-footer {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding: 26px 16px 10px;
+      background: linear-gradient(to top, rgba(7,24,47,0.88) 0%, rgba(7,24,47,0.55) 55%, rgba(7,24,47,0) 100%);
+      pointer-events: none;
+    }
+    #photo-footer-link {
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    #photo-footer-link b { color: var(--teal-bright); }
+    #photo-progress {
+      height: 6px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.18);
+      overflow: hidden;
+    }
+    #photo-progress-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--teal) 0%, var(--teal-bright) 100%);
+    }
+
     #slider .slide {
       position: absolute;
       inset: 0;
@@ -237,12 +284,17 @@
       </section>
 
       <section id="results" class="section">
+        <div id="results-heading">Ergebnisse</div>
         <div id="results-carousel"></div>
         <div id="results-status" class="results-status">Ergebnisse werden geladen…</div>
       </section>
 
       <section id="slider" class="section">
         <div id="slider-status" class="status">Bilder werden geladen…</div>
+        <div id="photo-footer">
+          <span id="photo-footer-link">Alle Ergebnisse: <b>aasw.at</b></span>
+          <div id="photo-progress"><div id="photo-progress-fill"></div></div>
+        </div>
       </section>
 
     </div>
@@ -255,7 +307,7 @@
     const SLIDER_DIR     = "images";
     const DATA_DIR       = "data";
     const SLIDE_MS       = 6000;         // Foto-Slider: Wechseldauer (ms)
-    const RESULT_SLIDE_MS = 15000;       // Ergebnis-Karussell: Wechseldauer (ms)
+    const RESULT_SLIDE_MS = 10000;       // Ergebnis-Karussell: Wechseldauer (ms)
     const REFRESH_MS     = 3 * 60 * 1000;
     const IMG_RE         = /\.(jpe?g|png|gif|webp|svg)$/i;
 
@@ -295,8 +347,19 @@
     // ===== Ergebnis-Karussell (Mitte) =====
     const resultsCarousel = document.getElementById("results-carousel");
     const resultsStatus   = document.getElementById("results-status");
+    const progressFill    = document.getElementById("photo-progress-fill");
     let resultTimer = null;
     let currentSlides = [];
+
+    // Ladestreifen unten füllt sich linear, bis die Ergebnisse wechseln.
+    function startResultProgress() {
+      if (!progressFill) return;
+      progressFill.style.transition = "none";
+      progressFill.style.width = "0%";
+      void progressFill.offsetWidth;            // Reflow erzwingen → Animation startet neu
+      progressFill.style.transition = `width ${RESULT_SLIDE_MS}ms linear`;
+      progressFill.style.width = "100%";
+    }
 
     async function loadResultsCarousel() {
       try {
@@ -349,12 +412,17 @@
       fitAllSlides();
 
       if (slides.length > 1) {
+        startResultProgress();
         resultTimer = setInterval(() => {
           slides[ridx].classList.remove("active");
           ridx = (ridx + 1) % slides.length;
           slides[ridx].classList.add("active");
           fitTableFont(slides[ridx]);
+          startResultProgress();
         }, RESULT_SLIDE_MS);
+      } else if (progressFill) {
+        progressFill.style.transition = "none";
+        progressFill.style.width = "100%";
       }
     }
 
